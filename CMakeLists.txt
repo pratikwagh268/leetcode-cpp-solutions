@@ -15,6 +15,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 # ---------------------------
+# Enable CTest
+# ---------------------------
+enable_testing()
+
+# ---------------------------
 # Include paths
 # ---------------------------
 include_directories(${PROJECT_SOURCE_DIR})
@@ -39,6 +44,9 @@ foreach(test_src ${TEST_SOURCES})
     get_filename_component(test_name ${test_src} NAME_WE)
 
     add_executable(${test_name} ${test_src})
+
+    # Register with CTest
+    add_test(NAME ${test_name} COMMAND ${test_name})
 
     # Compiler warnings
     if (MSVC)
